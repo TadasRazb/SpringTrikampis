@@ -1,19 +1,20 @@
 package tado;
 
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 
-	public class AtkarposMusuIsIrasymo extends AtkarposMusuIsIvedimo {
+	public class AtkarposMusuIsIrasymo extends AtkarposTest {
 		
 		public AtkarposMusuIsIrasymo() {
 			
 			super();
-			atkarpos = atiduokSarasa();
+		//	atkarpos = atiduokSarasa();
 		}
-		public Double[] atiduokSarasa(){
+		public Double[] atiduotiSarasa() throws IOException {
+			System.out.println("pradedam ivedima is klaviaturos: ");
 			Scanner scan = new Scanner(System.in);
-			Double[] atkarpos = new Double[ 20 ];		
+			atkarpos = new Double[ 20 ];		
 			Double nuskaityta_atkarpa = scan.nextDouble();
 					
 			int n = 0;

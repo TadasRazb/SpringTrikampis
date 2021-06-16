@@ -1,15 +1,17 @@
 package tado;
 
-import java.io.BufferedReader;
-import java.io.File;
+import java.io.BufferedReader; 
+import java.io.IOException; 
+import java.io.InputStreamReader; 
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.File;
+
 
 public class AtkarposMusuIsFailo extends AtkarposTest {
 	
-	public Double[] atkarpos;
+	File atkarpu_failas = new File("atkarpos.csv");
+	
 	public String failo_vardas;
-	public int n;
 	
 	public AtkarposMusuIsFailo() {
 		
@@ -24,6 +26,31 @@ public class AtkarposMusuIsFailo extends AtkarposTest {
 	
 public Double[] atiduotiSarasa() throws IOException{
 		
+	//BufferedReader reader = new BufferedReader ( new InputStreamReader (System.in ) ); 		
+	//String vardas_failo = reader.readLine();
+	atkarpos = new Double[ 20 ];
+	//if ( vardas_failo.length() == 0 ) {
+	
+		String vardas_failo = "atkarpos.csv";
+	//}
+	
+	BufferedReader br = new BufferedReader( new FileReader( vardas_failo ) );
+	String atkarpu_skaiciai = br.readLine();
+	String[] atkarpu_skaiciaix = atkarpu_skaiciai.split ( "," ); 
+	
+	int n = 0;
+	
+	Double atkarpu_skaiciaiy = 0.0;
+	
+	while ( n < atkarpu_skaiciaix.length ) {
+		
+		Double atkarpu_skaiciaiz = Double.parseDouble ( atkarpu_skaiciaix [ n ] );
+		atkarpos[ n ] = atkarpu_skaiciaiz;
+		n++;
+	}
+	this.n = n;
+	return atkarpos;
+	/*
 		File atkarpu_failas = new File("/Users/tadas/Desktop/mvnhello/SpringTrikampis/src/main/java/tado/atkarpos.csv");
         BufferedReader krastines = new BufferedReader( new FileReader(atkarpu_failas) );
         String krastine;  
@@ -47,5 +74,6 @@ public Double[] atiduotiSarasa() throws IOException{
 			i++;
 		}
 		return atkarposx;
+		*/
 	}
 }

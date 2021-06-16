@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Labas Spring web</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script src="GrafikasX.js"></script>
+	<script>
+	
+		$( document ).ready ( function() {
+		
+		
+			var taskai_visi;
+	
+			$.ajax({
+		 		 url: '/kreives-taskai'
+		 
+			}).done( function( data ) {
+				
+				// alert ( "gauti duomenys: " + data );
+				/*
+				for ( i = 0; i < data.length; i++ ) {
+				
+					if ( data [ i ] != null ) {
+				
+						console.log ( "x: " + data [ i ].x  + " y: " + data [ i ].y + " z: " + data [ i ].z );
+					}
+				}
+				*/
+				
+				console.log ( JSON.stringify ( data ) );
+				
+				taskai_visi = data.taskai;
+		  	});	
+		  	
+		  	$( '#rasti_atstuma' ).click( function() {
+		  	
+		  		taskas = { x: 0, y: 0, z: 0 };
+		  		
+		  		taskas.x = $( '#inp_x' ).val();
+		  		taskas.y = $( '#inp_y' ).val();
+		  		taskas.z = $( '#inp_z' ).val();
+		  		
+		  		taskai_visi.push ( taskas );
+		  	
+				grafikas = new GrafikasX ( 'kreives_grafikas', taskai_visi, 'x', 'z' );
+				
+				taskai_visi.pop();
+				
+				grafikas.braizom ( taskai_visi, 'x', 'z', "blue" );
+				
+				atkarpa = [];
+				
+				atkarpa.push ( taskas );
+				atkarpa.push ( taskai_visi [ 0 ] );
+				
+				grafikas.braizom ( atkarpa, 'x', 'z', "red" );		  	
+		  	
+		  	});
+		});
+	
+	</script>
+	<style>
+		#forma {
+			 width: 90%;
+			 margin: 10px auto;
+		}
+		label {
+			display: block;
+		}
+		input, label {
+			width: 90%;
+			margin: 10px auto;
+		}
+		.skaicius {
+		
+			color: green;
+		}
+		.klaida {
+		
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	Labas Spring web
+	<table>
+		<tr>
+			<th>
+				x
+			</th>
+			<th>
+				y
+			</th>			
+			<th>
+				z
+			</th>
+		</tr>
+		<tr th:each="atkarpa : ${atkarpos}">
+			<td th:text="${atkarpa}"></td>			
+		</tr>
+	</table>
+</body>
+</html>

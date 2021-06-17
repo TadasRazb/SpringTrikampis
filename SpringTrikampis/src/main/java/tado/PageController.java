@@ -18,6 +18,8 @@ public class PageController {
 		
 		try {
 			trikampiu_sudarytojas.atlikti();
+			model.addAttribute ("atkarpos_pradines", trikampiu_sudarytojas.atkarpos_pradines);
+			model.addAttribute ("trikampiai", trikampiu_sudarytojas.trikampiaix);
 			model.addAttribute ("atkarpos", trikampiu_sudarytojas.atkarpos);
 		} catch (Exception e) {
 			

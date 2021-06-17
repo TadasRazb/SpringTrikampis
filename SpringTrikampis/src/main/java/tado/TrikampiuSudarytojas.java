@@ -7,6 +7,9 @@ public class TrikampiuSudarytojas {
 	
 	public AtkarposTest atkarposx;
 	public Double[] atkarpos;
+	public Double[] atkarpos_pradines;
+	public ArrayList<TrikampisMusu> trikampiai;
+	public ArrayList<TrikampisMusu> trikampiaix;
 	
 	public TrikampiuSudarytojas () {
 		
@@ -22,15 +25,22 @@ public class TrikampiuSudarytojas {
 		//atkarposx.atiduoti
 		atkarpos = atkarposx.atiduotiSarasa();
 		int n = atkarposx.n;
+		atkarpos_pradines = new Double[n];
+		
+		for (int i = 0; i < n; i++) {
+			
+			atkarpos_pradines[i] = atkarpos[i];
+		}
 		
 		atkarpuSpausdinimas (atkarpos, n);
 		
-		ArrayList<TrikampisMusu> trikampiai= galimiTrikampiai(atkarpos, n);
+		trikampiai = galimiTrikampiai(atkarpos, n);
 
 		int eilNr = 0;
-
+		trikampiaix = new ArrayList<TrikampisMusu>();
 		System.out.println("Galimi trikampiai: " + "\n");
 		for (TrikampisMusu trikampis:trikampiai){
+				trikampiaix.add(trikampis);
 				System.out.println(eilNr + " " + trikampis.toString());
 			eilNr++;
 		}

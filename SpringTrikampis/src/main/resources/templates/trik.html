@@ -83,18 +83,20 @@
 </head>
 <body>
 	Labas Spring web
+	<h3>pradines atkarpos</h3>
+		<table>
+			<tr th:each="atkarpa : ${atkarpos_pradines}">
+				<td th:text="${atkarpa}"></td>			
+			</tr>
+		</table>
+	<h3>trikampiai</h3>
+		<table>
+			<tr th:each="trikampis : ${trikampiai}">
+				<td th:text="${trikampis.toString()}"></td>			
+			</tr>
+		</table>
+	<h3>likusios atkarpos</h3>
 	<table>
-		<tr>
-			<th>
-				x
-			</th>
-			<th>
-				y
-			</th>			
-			<th>
-				z
-			</th>
-		</tr>
 		<tr th:each="atkarpa : ${atkarpos}">
 			<td th:text="${atkarpa}"></td>			
 		</tr>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Labas Spring web</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script src="GrafikasX.js"></script>
+	<script>
+	
+		$( document ).ready ( function() {
+		
+		
+			var atkarpos;
+		  	
+		  	$( '#parodyti-atkarpas' ).click( function() {	  	
+		  		
+		  		$.ajax({
+		 			url: '/trikampiu-sudarytojas'
+		 
+				}).done( function( data ) {
+					
+					console.log ( JSON.stringify ( data ) );
+				
+					atkarpos = data.atkarpos_pradines;
+					
+					rez_str="pradines atkarpos : <br> ";
+			  		for ( i = 0; i < atkarpos.length; i++) {
+			  			rez_str += " " + atkarpos[i];
+			  		}
+			  		$('#rez').html(rez_str);
+		  		});	
+		  	});
+		});
+	
+	</script>
+	<style>
+		#forma {
+			 width: 90%;
+			 margin: 10px auto;
+		}
+		label {
+			display: block;
+		}
+		input, label {
+			width: 90%;
+			margin: 10px auto;
+		}
+		.skaicius {
+		
+			color: green;
+		}
+		.klaida {
+		
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<input id="parodyti-atkarpas" type="button" value="pradinės atkarpos">
+		<div id="rez"> 
+		</div>
+</body>
+</html>

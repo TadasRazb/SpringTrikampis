@@ -95,6 +95,24 @@
 				<td th:text="${trikampis.toString()}"></td>			
 			</tr>
 		</table>
+	<h3>statieji trikampiai</h3>
+		<table>
+			<tr th:each="trikampis : ${statieji_trikampiai}">
+				<td th:text="${trikampis.toString()}"></td>			
+			</tr>
+		</table>
+	<h3>lygiasoniai trikampiai</h3>
+		<table>
+			<tr th:each="trikampis : ${lygiasoniai_trikampiai}">
+				<td th:text="${trikampis.toString()}"></td>			
+			</tr>
+		</table>
+	<h3>lygiakrasciai trikampiai</h3>
+		<table>
+			<tr th:each="trikampis : ${lygiakrasciai_trikampiai}">
+				<td th:text="${trikampis.toString()}"></td>			
+			</tr>
+		</table>
 	<h3>likusios atkarpos</h3>
 	<table>
 		<tr th:each="atkarpa : ${atkarpos}">

@@ -10,6 +10,9 @@ public class TrikampiuSudarytojas {
 	public Double[] atkarpos_pradines;
 	public ArrayList<TrikampisMusu> trikampiai;
 	public ArrayList<TrikampisMusu> trikampiaix;
+	public ArrayList<TrikampisMusu> trikampiaiy;
+	public ArrayList<TrikampisMusu> trikampiaiz;
+	public ArrayList<TrikampisMusu> trikampiaiw;
 	
 	public TrikampiuSudarytojas () {
 		
@@ -44,21 +47,27 @@ public class TrikampiuSudarytojas {
 				System.out.println(eilNr + " " + trikampis.toString());
 			eilNr++;
 		}
+		trikampiaiy = new ArrayList<TrikampisMusu>();
 		System.out.print("Galimi status trikampiai: " + "\n");
 		for (TrikampisMusu trikampis:trikampiai){
 			if (trikampis.arStatusis()){
+				trikampiaiy.add(trikampis);
 				System.out.println(trikampis.toString());
 			}
 		}
+		trikampiaiz = new ArrayList<TrikampisMusu>();
 		System.out.print("Galimi lygiasoniai trikampiai: " + "\n");
 		for (TrikampisMusu trikampis:trikampiai){
 			if (trikampis.arLygiasonis()){
+				trikampiaiz.add(trikampis);
 				System.out.println(trikampis.toString());
 			}
 		}
+		trikampiaiw = new ArrayList<TrikampisMusu>();
 		System.out.print("Galimi lygiakrasciai trikampiai: " + "\n");
 		for (TrikampisMusu trikampis:trikampiai){
 			if (trikampis.arLygiakrastis()){
+				trikampiaiw.add(trikampis);
 				System.out.println(trikampis.toString());
 			}
 		}

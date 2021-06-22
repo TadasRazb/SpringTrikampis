@@ -8,11 +8,12 @@ public class TrikampiuSudarytojas {
 	public AtkarposTest atkarposx;
 	public Double[] atkarpos;
 	public Double[] atkarpos_pradines;
-	public ArrayList<TrikampisMusu> trikampiai;
-	public ArrayList<TrikampisMusu> trikampiaix;
-	public ArrayList<TrikampisMusu> trikampiaiy;
-	public ArrayList<TrikampisMusu> trikampiaiz;
-	public ArrayList<TrikampisMusu> trikampiaiw;
+	public ArrayList<TrikampisVaizd> trikampiai;
+	public ArrayList<TrikampisVaizd> trikampiaix;
+	public ArrayList<TrikampisVaizd> trikampiaiy;
+	public ArrayList<TrikampisVaizd> trikampiaiz;
+	public ArrayList<TrikampisVaizd> trikampiaiw;
+	public ArrayList<TrikampisVaizd> trikampiai_naujas_sarasas;
 	
 	public TrikampiuSudarytojas () {
 		
@@ -40,45 +41,55 @@ public class TrikampiuSudarytojas {
 		trikampiai = galimiTrikampiai(atkarpos, n);
 
 		int eilNr = 0;
-		trikampiaix = new ArrayList<TrikampisMusu>();
+		trikampiaix = new ArrayList<TrikampisVaizd>();
 		System.out.println("Galimi trikampiai: " + "\n");
-		for (TrikampisMusu trikampis:trikampiai){
+		for (TrikampisVaizd trikampis:trikampiai){
 				trikampiaix.add(trikampis);
 				System.out.println(eilNr + " " + trikampis.toString());
 			eilNr++;
 		}
-		trikampiaiy = new ArrayList<TrikampisMusu>();
+		trikampiaiy = new ArrayList<TrikampisVaizd>();
 		System.out.print("Galimi status trikampiai: " + "\n");
-		for (TrikampisMusu trikampis:trikampiai){
+		for (TrikampisVaizd trikampis:trikampiai){
 			if (trikampis.arStatusis()){
 				trikampiaiy.add(trikampis);
 				System.out.println(trikampis.toString());
 			}
 		}
-		trikampiaiz = new ArrayList<TrikampisMusu>();
+		trikampiaiz = new ArrayList<TrikampisVaizd>();
 		System.out.print("Galimi lygiasoniai trikampiai: " + "\n");
-		for (TrikampisMusu trikampis:trikampiai){
+		for (TrikampisVaizd trikampis:trikampiai){
 			if (trikampis.arLygiasonis()){
 				trikampiaiz.add(trikampis);
 				System.out.println(trikampis.toString());
 			}
 		}
-		trikampiaiw = new ArrayList<TrikampisMusu>();
+		trikampiaiw = new ArrayList<TrikampisVaizd>();
 		System.out.print("Galimi lygiakrasciai trikampiai: " + "\n");
-		for (TrikampisMusu trikampis:trikampiai){
+		for (TrikampisVaizd trikampis:trikampiai){
 			if (trikampis.arLygiakrastis()){
 				trikampiaiw.add(trikampis);
 				System.out.println(trikampis.toString());
 			}
 		}
 		
-		ArrayList<TrikampisMusu> trikampiai_naujas_sarasas = new ArrayList<TrikampisMusu>(); 
+		trikampiai_naujas_sarasas = new ArrayList<TrikampisVaizd>(); 
+		
+		Koordinate[] koord = {
+				new Koordinate( 110, 110), new Koordinate ( 210, 110 ), new Koordinate ( 310, 110 ), new Koordinate ( 410, 110 ) 
+				, new Koordinate( 110, 210), new Koordinate ( 210, 210 ), new Koordinate ( 310, 210 ), new Koordinate ( 410, 210 )
+				, new Koordinate( 110, 310), new Koordinate ( 210, 310 ), new Koordinate ( 310, 310 ), new Koordinate ( 410, 310 )
+				, new Koordinate( 110, 410), new Koordinate ( 210, 410 ), new Koordinate ( 310, 410 ), new Koordinate ( 410, 410 )
+		};
+		
+		int i = 0;
 		
 		while (trikampiai.size()>0) {
 			
 			int max_index = maxPlotoTrikampioNr(trikampiai);
 			System.out.println("didziausias trikampis : " + trikampiai.get(max_index).S);
 			System.out.println("jo numeris : " + max_index);
+			trikampiai.get(max_index).taskuKoordinates(koord[i].x, koord[i].y);
 			trikampiai_naujas_sarasas.add(trikampiai.get(max_index));
 			
 			int pirmas_trinamas = trikampiai.get(max_index).ai;
@@ -121,19 +132,21 @@ public class TrikampiuSudarytojas {
 			n = pakeistiElementus ( atkarpos, n, trecias_trinamas); //trina trecia panaudota trikampio krastine
 			
 			trikampiai = galimiTrikampiai(atkarpos, n);
+			i++;
 		}	
+		
 		atkarpuSpausdinimas (atkarpos, n);
 		
 		eilNr = 0;
 		
 		System.out.println("sudaryti trikampiai: " + "\n");
-		for (TrikampisMusu trikampis:trikampiai_naujas_sarasas){
+		for (TrikampisVaizd trikampis:trikampiai_naujas_sarasas){
 				System.out.println(eilNr + " " + trikampis.toString());
 			eilNr++;
 		}
 		
 	}
-	public static int maxPlotoTrikampioNr(ArrayList<TrikampisMusu> trikampiai) {
+	public static int maxPlotoTrikampioNr(ArrayList<TrikampisVaizd> trikampiai) {
 
 		int max_ploto_trikampio_nr = 0;
 
@@ -150,9 +163,9 @@ public class TrikampiuSudarytojas {
 		return max_ploto_trikampio_nr;
 	}
 //metodas, kuris sudaro trikampiu array lista
-	private static ArrayList<TrikampisMusu> galimiTrikampiai(Double[] atkarpos, int n) {
+	private static ArrayList<TrikampisVaizd> galimiTrikampiai(Double[] atkarpos, int n) {
 
-		ArrayList<TrikampisMusu> trikampiai= new ArrayList<TrikampisMusu>();
+		ArrayList<TrikampisVaizd> trikampiai= new ArrayList<TrikampisVaizd>();
 
 		for (int i = 0; i < n - 2; i++ ) {
 
@@ -161,7 +174,7 @@ public class TrikampiuSudarytojas {
 				for (int t = j + 1; t < n; t++ ) {
 
 						if (Trikampis.arTrikampis ( atkarpos [ i ], atkarpos [ j ], atkarpos [ t ] )) {
-							trikampiai.add(new TrikampisMusu( atkarpos [ i ], atkarpos [ j ], atkarpos [ t ],i,j,t));
+							trikampiai.add(new TrikampisVaizd( atkarpos [ i ], atkarpos [ j ], atkarpos [ t ],i,j,t));
 
 					}
 				}

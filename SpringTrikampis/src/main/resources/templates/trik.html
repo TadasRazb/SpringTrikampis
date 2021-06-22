@@ -32,30 +32,48 @@
 				taskai_visi = data.taskai;
 		  	});	
 		  	
-		  	$( '#rasti_atstuma' ).click( function() {
+		  	$( '#rodyk' ).click( function() {
 		  	
-		  		taskas = { x: 0, y: 0, z: 0 };
+		  		$.ajax({
 		  		
-		  		taskas.x = $( '#inp_x' ).val();
-		  		taskas.y = $( '#inp_y' ).val();
-		  		taskas.z = $( '#inp_z' ).val();
-		  		
-		  		taskai_visi.push ( taskas );
-		  	
-				grafikas = new GrafikasX ( 'kreives_grafikas', taskai_visi, 'x', 'z' );
+		  			url: '/trikampiu-sudarytojas'
+		  			
+		  		}).done(function( data ) {
+		  			
+		  			console.log (JSON.stringify ( data ) );
+		  			
+		  				cnv = document.getElementById ( 'vaizduoti-trikampius' );
+
+						this.ctx = cnv.getContext ( '2d' );
+						this.ctx.strokeStyle = "purple";
 				
-				taskai_visi.pop();
+						this.x_width = ( cnv.width - 50 );
+						this.y_height = ( cnv.height - 50 );
 				
-				grafikas.braizom ( taskai_visi, 'x', 'z', "blue" );
+						this.x_koord_prad = 30;
+						this.y_koord_prad = this.y_height + 20;
 				
-				atkarpa = [];
+						console.log ( "x_koord_prad: " + this.x_koord_prad + " y_koord_prad: " + this.y_koord_prad );
 				
-				atkarpa.push ( taskas );
-				atkarpa.push ( taskai_visi [ 0 ] );
-				
-				grafikas.braizom ( atkarpa, 'x', 'z', "red" );		  	
-		  	
-		  	});
+						this.ctx.beginPath();
+						trik = data.trikampiai_naujas_sarasas;
+						this.ctx.strokeStyle =  "purple";
+						
+						for (i=0; i<trik.length; i++) {
+						
+							this.ctx.moveTo ( trik[i].x1, trik[i].y12 );
+							this.ctx.lineTo ( trik[i].x2, trik[i].y12 );
+							this.ctx.moveTo ( trik[i].x2, trik[i].y12 );
+							this.ctx.lineTo ( trik[i].x3, trik[i].y3 );
+							this.ctx.moveTo ( trik[i].x3, trik[i].y3 );
+							this.ctx.lineTo ( trik[i].x1, trik[i].y12 );
+							console.log(i);
+						}
+						
+						this.ctx.stroke();					
+						this.ctx.closePath();		
+		  		}); 
+			});
 		});
 	
 	</script>
@@ -119,5 +137,8 @@
 			<td th:text="${atkarpa}"></td>			
 		</tr>
 	</table>
+	<h3> trikampiu vaizdai</h3>
+		<input type="button" value="rodyti" id="rodyk">
+		<canvas id="vaizduoti-trikampius" width="1070" height="600" style="border:1px solid black;"> </canvas>
 </body>
 </html>

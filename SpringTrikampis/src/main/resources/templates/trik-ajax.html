@@ -10,6 +10,12 @@
 		
 		
 			var atkarpos;
+		  	var trikampiai;
+		  	
+		  	function toString(trikampis) {
+		  	
+				return "trikampis : " + trikampis.ai + "," + trikampis.a + " " + trikampis.bi + "," + trikampis.b + " " + trikampis.ci + "," + trikampis.c + "," + " S= " + trikampis.S;
+			}
 		  	
 		  	$( '#parodyti-atkarpas' ).click( function() {	  	
 		  		
@@ -27,8 +33,49 @@
 			  			rez_str += " " + atkarpos[i];
 			  		}
 			  		$('#rez').html(rez_str);
+			  		
+			  		trikampiai = data.trikampiaix;
+		  			
+		  			rez_str2="galimi trikampiai : <br> ";
+		  			for (i = 0; i < trikampiai.length; i++) {
+		  				rez_str2 += " " + toString( trikampiai[i]) + "<br>";
+		  			}
+		  			$('#rez2').html(rez_str2);
 		  		});	
 		  	});
+		  	  	
+		  	$( 'vaizduoti-trikampius' ).click( function() {
+		  	
+		  		$.ajax({
+		  		
+		  			url: '/trikampiu-sudarytojas'
+		  			
+		  		}).done(function( data ) {
+		  			
+		  			console.log (JSON.stringify ( data ) );
+		  			
+		  				cnv = document.getElementById ( 'vaizduoti-trikampius' );
+
+						this.ctx = cnv.getContext ( '2d' );
+						this.ctx.strokeStyle = "purple";
+				
+						this.x_width = ( cnv.width - 50 );
+						this.y_height = ( cnv.height - 50 );
+				
+						this.x_koord_prad = 30;
+						this.y_koord_prad = this.y_height + 20;
+				
+						console.log ( "x_koord_prad: " + this.x_koord_prad + " y_koord_prad: " + this.y_koord_prad );
+				
+						this.ctx.beginPath();
+						this.ctx.moveTo ( this.x_koord_prad, 40 );
+						this.ctx.lineTo ( this.x_koord_prad, this.y_koord_prad + 5 );
+						this.ctx.stroke();
+						this.ctx.strokeStyle =  "purple";
+						this.ctx.closePath();
+		  				
+		  		}); 
+			});
 		});
 	
 	</script>
@@ -57,6 +104,9 @@
 <body>
 	<input id="parodyti-atkarpas" type="button" value="pradinės atkarpos">
 		<div id="rez"> 
+		</div>
+	<input id="parodyti-trikampius" type="button" value="galimi trikampiai">
+		<div id="rez2">
 		</div>
 </body>
 </html>

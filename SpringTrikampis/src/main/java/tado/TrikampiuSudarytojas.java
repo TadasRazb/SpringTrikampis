@@ -14,6 +14,12 @@ public class TrikampiuSudarytojas {
 	public ArrayList<TrikampisVaizd> trikampiaiz;
 	public ArrayList<TrikampisVaizd> trikampiaiw;
 	public ArrayList<TrikampisVaizd> trikampiai_naujas_sarasas;
+	public static Koordinate[] koord = {
+			new Koordinate( 110, 110), new Koordinate ( 210, 110 ), new Koordinate ( 310, 110 ), new Koordinate ( 410, 110 ) 
+			, new Koordinate( 110, 210), new Koordinate ( 210, 210 ), new Koordinate ( 310, 210 ), new Koordinate ( 410, 210 )
+			, new Koordinate( 110, 310), new Koordinate ( 210, 310 ), new Koordinate ( 310, 310 ), new Koordinate ( 410, 310 )
+			, new Koordinate( 110, 410), new Koordinate ( 210, 410 ), new Koordinate ( 310, 410 ), new Koordinate ( 410, 410 )
+	};
 	
 	public TrikampiuSudarytojas () {
 		
@@ -24,64 +30,70 @@ public class TrikampiuSudarytojas {
 		this.atkarposx = atkarposx;
 	}
 	
-	public void atlikti () throws IOException {
+	public void issaugotiPradiniuSarase(int n) {
 		
-		//atkarposx.atiduoti
-		atkarpos = atkarposx.atiduotiSarasa();
-		int n = atkarposx.n;
 		atkarpos_pradines = new Double[n];
 		
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {	//nuskaito visas atkarpas
 			
 			atkarpos_pradines[i] = atkarpos[i];
+			
 		}
+	}
+	
+	public void issaugotiGalimuTrikampiuSarase() {	
 		
-		atkarpuSpausdinimas (atkarpos, n);
-		
-		trikampiai = galimiTrikampiai(atkarpos, n);
-
-		int eilNr = 0;
 		trikampiaix = new ArrayList<TrikampisVaizd>();
 		System.out.println("Galimi trikampiai: " + "\n");
 		for (TrikampisVaizd trikampis:trikampiai){
 				trikampiaix.add(trikampis);
-				System.out.println(eilNr + " " + trikampis.toString());
-			eilNr++;
 		}
+	}
+	
+	public void sudarytiStaciujuTrikampiuSarasa() {
+		
 		trikampiaiy = new ArrayList<TrikampisVaizd>();
-		System.out.print("Galimi status trikampiai: " + "\n");
 		for (TrikampisVaizd trikampis:trikampiai){
 			if (trikampis.arStatusis()){
 				trikampiaiy.add(trikampis);
-				System.out.println(trikampis.toString());
 			}
 		}
+	}
+	
+	public void sudarytiLygiasoniuTrikampiuSarasa () {
+		
 		trikampiaiz = new ArrayList<TrikampisVaizd>();
-		System.out.print("Galimi lygiasoniai trikampiai: " + "\n");
 		for (TrikampisVaizd trikampis:trikampiai){
 			if (trikampis.arLygiasonis()){
 				trikampiaiz.add(trikampis);
-				System.out.println(trikampis.toString());
 			}
 		}
+	}
+	
+	public void sudarytiLygiakrasciuTrikampiuSarasa () {
+		
 		trikampiaiw = new ArrayList<TrikampisVaizd>();
-		System.out.print("Galimi lygiakrasciai trikampiai: " + "\n");
 		for (TrikampisVaizd trikampis:trikampiai){
 			if (trikampis.arLygiakrastis()){
 				trikampiaiw.add(trikampis);
-				System.out.println(trikampis.toString());
 			}
 		}
 		
+	}
+	
+	public void parodytiTrikampius(String pav_saraso, ArrayList<TrikampisVaizd> trikampiai_vaizd) {
+	
+		int eilNr = 0;
+		System.out.println(pav_saraso + "\n");
+		for (TrikampisVaizd trikampis:trikampiai_vaizd){
+				System.out.println(eilNr + " " + trikampis.toString());
+			eilNr++;
+		}
+	}
+	
+	public int sudarytiTrikampius(int n) {
+		
 		trikampiai_naujas_sarasas = new ArrayList<TrikampisVaizd>(); 
-		
-		Koordinate[] koord = {
-				new Koordinate( 110, 110), new Koordinate ( 210, 110 ), new Koordinate ( 310, 110 ), new Koordinate ( 410, 110 ) 
-				, new Koordinate( 110, 210), new Koordinate ( 210, 210 ), new Koordinate ( 310, 210 ), new Koordinate ( 410, 210 )
-				, new Koordinate( 110, 310), new Koordinate ( 210, 310 ), new Koordinate ( 310, 310 ), new Koordinate ( 410, 310 )
-				, new Koordinate( 110, 410), new Koordinate ( 210, 410 ), new Koordinate ( 310, 410 ), new Koordinate ( 410, 410 )
-		};
-		
 		int i = 0;
 		
 		while (trikampiai.size()>0) {
@@ -132,20 +144,61 @@ public class TrikampiuSudarytojas {
 			n = pakeistiElementus ( atkarpos, n, trecias_trinamas); //trina trecia panaudota trikampio krastine
 			
 			trikampiai = galimiTrikampiai(atkarpos, n);
+			
 			i++;
-		}	
-		
-		atkarpuSpausdinimas (atkarpos, n);
-		
-		eilNr = 0;
-		
-		System.out.println("sudaryti trikampiai: " + "\n");
-		for (TrikampisVaizd trikampis:trikampiai_naujas_sarasas){
-				System.out.println(eilNr + " " + trikampis.toString());
-			eilNr++;
 		}
-		
+		return n;
 	}
+	
+	public Double rastiDidziausiaKrastine() {
+	
+		Double max;  
+		max = trikampiai_naujas_sarasas.get(0).max(); //is trikampiai_naujas_sarasas pasiimtu nulini trikampi ir jo max atkarpos reiksme. gali but 0.0 nes trikampiai negali buti su neigiamom krastinem.
+		
+		for ( int x=0; x<trikampiai_naujas_sarasas.size(); x++ ){  
+		 
+			if (trikampiai_naujas_sarasas.get(x).max() > max) { 
+				
+				max = trikampiai_naujas_sarasas.get(x).max();  
+			}  
+		}
+		return max;
+	}
+	
+	public void atlikti () throws IOException {
+		
+		//atkarposx.atiduoti
+		atkarpos = atkarposx.atiduotiSarasa();
+		issaugotiPradiniuSarase ( atkarposx.n );
+		
+		atkarpuSpausdinimas ( atkarpos, atkarposx.n );
+		
+		trikampiai = galimiTrikampiai ( atkarpos, atkarposx.n );
+
+		issaugotiGalimuTrikampiuSarase();
+		parodytiTrikampius("Galimi trikampiai: ", trikampiaix);
+		sudarytiStaciujuTrikampiuSarasa();
+		parodytiTrikampius("Galimi status trikampiai: ", trikampiaiy);
+		sudarytiLygiasoniuTrikampiuSarasa();
+		parodytiTrikampius("Galimi lygiasoniai trikampiai: ", trikampiaiz);
+		sudarytiLygiakrasciuTrikampiuSarasa();
+		parodytiTrikampius("Galimi lygiakrasciai trikampiai: ", trikampiaiw);
+		
+		int n = sudarytiTrikampius(atkarposx.n);
+		parodytiTrikampius("sudaryti trikampiai: ", trikampiai_naujas_sarasas); 
+		atkarpuSpausdinimas (atkarpos, n); //spausdinamos likusios atkarpos
+		
+		Double max = rastiDidziausiaKrastine();
+		
+		for ( int x=0; x<trikampiai_naujas_sarasas.size(); x++ ){  
+			 
+			if (trikampiai_naujas_sarasas.get(x).max() > max) { 
+				
+				max = trikampiai_naujas_sarasas.get(x).max();  
+			}  
+		}
+	}
+	
 	public static int maxPlotoTrikampioNr(ArrayList<TrikampisVaizd> trikampiai) {
 
 		int max_ploto_trikampio_nr = 0;

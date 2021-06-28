@@ -47,4 +47,19 @@ public class Trikampis{
 	public double plotas () {
 		return S;
 	}
+	public double max() {
+		double maxx = 0;
+
+		if  ( (a > b) && (a > c) ) {
+			maxx = a;
+		}
+		if ((b > a) && (b > c)) {
+			maxx = b;
+		}
+		if ((c > a) && (c > b)) {
+			maxx = c;
+		}
+		return maxx;
+	}
+	
 }

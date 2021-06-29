@@ -101,7 +101,6 @@ public class TrikampiuSudarytojas {
 			int max_index = maxPlotoTrikampioNr(trikampiai);
 			System.out.println("didziausias trikampis : " + trikampiai.get(max_index).S);
 			System.out.println("jo numeris : " + max_index);
-			trikampiai.get(max_index).taskuKoordinates(koord[i].x, koord[i].y);
 			trikampiai_naujas_sarasas.add(trikampiai.get(max_index));
 			
 			int pirmas_trinamas = trikampiai.get(max_index).ai;
@@ -151,7 +150,7 @@ public class TrikampiuSudarytojas {
 	}
 	
 	public Double rastiDidziausiaKrastine() {
-	
+		
 		Double max;  
 		max = trikampiai_naujas_sarasas.get(0).max(); //is trikampiai_naujas_sarasas pasiimtu nulini trikampi ir jo max atkarpos reiksme. gali but 0.0 nes trikampiai negali buti su neigiamom krastinem.
 		
@@ -170,7 +169,7 @@ public class TrikampiuSudarytojas {
 		//atkarposx.atiduoti
 		atkarpos = atkarposx.atiduotiSarasa();
 		issaugotiPradiniuSarase ( atkarposx.n );
-		
+
 		atkarpuSpausdinimas ( atkarpos, atkarposx.n );
 		
 		trikampiai = galimiTrikampiai ( atkarpos, atkarposx.n );
@@ -185,17 +184,19 @@ public class TrikampiuSudarytojas {
 		parodytiTrikampius("Galimi lygiakrasciai trikampiai: ", trikampiaiw);
 		
 		int n = sudarytiTrikampius(atkarposx.n);
-		parodytiTrikampius("sudaryti trikampiai: ", trikampiai_naujas_sarasas); 
+		parodytiTrikampius("sudaryti xtrikampiai: ", trikampiai_naujas_sarasas); 
 		atkarpuSpausdinimas (atkarpos, n); //spausdinamos likusios atkarpos
 		
 		Double max = rastiDidziausiaKrastine();
+		Double koef_perskaiciavimui = 100 / max;
+		System.out.println("max = " + max);
+		System.out.println("koef perskaiciavimui = " + koef_perskaiciavimui);
 		
-		for ( int x=0; x<trikampiai_naujas_sarasas.size(); x++ ){  
+		for ( int i=0; i<trikampiai_naujas_sarasas.size(); i++ ){  
 			 
-			if (trikampiai_naujas_sarasas.get(x).max() > max) { 
-				
-				max = trikampiai_naujas_sarasas.get(x).max();  
-			}  
+			 trikampiai_naujas_sarasas.get(i).normintiKrastines(koef_perskaiciavimui);
+			 trikampiai_naujas_sarasas.get(i).taskuKoordinates(koord[i].x, koord[i].y);
+			 System.out.println(trikampiai_naujas_sarasas.get(i).toString());
 		}
 	}
 	

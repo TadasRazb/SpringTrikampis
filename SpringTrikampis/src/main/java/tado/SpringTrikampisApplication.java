@@ -31,9 +31,9 @@ public class SpringTrikampisApplication {
 			nuskaityta_atkarpa = scan.nextDouble();
 		}
 		*/
-		AtkarposMusuIsFailo atkarposx = new AtkarposMusuIsFailo();
+		/*AtkarposMusuIsFailo atkarposx = new AtkarposMusuIsFailo();
 		
 		TrikampiuSudarytojas trikampiu_sudarytojas = new TrikampiuSudarytojas(atkarposx);
-		trikampiu_sudarytojas.atlikti();
+		trikampiu_sudarytojas.atlikti(); */
 	}
 }
